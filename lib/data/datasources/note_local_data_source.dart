@@ -21,6 +21,7 @@ class NoteLocalDataSource implements BaseLocalDataSource<NoteModel> {
       NotesTableCompanion.insert(
         title: item.title,
         content: item.content,
+        category: Value(item.category),
         createdAt: item.createdAt,
         animationIndex: Value(item.animationIndex),
       ),

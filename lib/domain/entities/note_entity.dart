@@ -6,6 +6,7 @@ class NoteEntity extends Equatable {
   final String content;
   final int? animationIndex;
   final DateTime createdAt;
+  final String category;
 
   const NoteEntity({
     required this.id,
@@ -13,8 +14,9 @@ class NoteEntity extends Equatable {
     required this.content,
     required this.animationIndex,
     required this.createdAt,
+    this.category = 'idea',
   });
 
   @override
-  List<Object?> get props => [id, title, content, animationIndex, createdAt];
+  List<Object?> get props => [id, title, content, animationIndex, createdAt, category];
 }

@@ -20,15 +20,16 @@ class NoteEditPage extends StatefulWidget {
 class _NoteEditPageState extends State<NoteEditPage> {
   late TextEditingController titleController;
   late TextEditingController contentController;
+  late String selectedCategory;
   int? selectedAnimation;
 
   @override
   void initState() {
     super.initState();
     titleController = TextEditingController(text: widget.note?.title ?? '');
-    contentController =
-        TextEditingController(text: widget.note?.content ?? '');
-    selectedAnimation = widget.note?.animationIndex;
+    contentController = TextEditingController(text: widget.note?.content ?? '');
+    selectedCategory = widget.note?.category ?? 'idea';
+    selectedAnimation = widget.note?.animationIndex ?? 0;
   }
 
   @override
@@ -50,6 +51,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
       content: contentController.text.trim(),
       animationIndex: selectedAnimation,
       createdAt: widget.note?.createdAt ?? DateTime.now(),
+      category: selectedCategory,
     );
 
     if (widget.note == null) {
@@ -66,8 +68,18 @@ class _NoteEditPageState extends State<NoteEditPage> {
     final isEdit = widget.note != null;
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F4EF),
       appBar: AppBar(
-        title: Text(isEdit ? 'Редактирование' : 'Новая заметка'),
+        backgroundColor: const Color(0xFFF5F4EF),
+        title: Text(
+          isEdit ? 'Редактирование' : 'Новая заметка',
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w700,
+            fontFamily: 'Manrope',
+            color: Color(0xFF242923),
+          ),
+        ),
         actions: [
           IconButton(
             onPressed: saveNote,
@@ -80,26 +92,121 @@ class _NoteEditPageState extends State<NoteEditPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Text(
+              'НАЗВАНИЕ',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: Color(0xFF7A7F76),
+              ),
+            ),
+            const SizedBox(height: 8),
             TextField(
               controller: titleController,
-              decoration: const InputDecoration(
-                labelText: 'Заголовок',
-                border: OutlineInputBorder(),
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: const Color(0xFFFFFEFA),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               ),
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: 18),
+            const Text(
+              'ТЕКСТ ЗАМЕТКИ',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: Color(0xFF7A7F76),
+              ),
+            ),
+            const SizedBox(height: 8),
             TextField(
               controller: contentController,
-              maxLines: 6,
-              decoration: const InputDecoration(
-                labelText: 'Текст заметки',
-                border: OutlineInputBorder(),
+              minLines: 5,
+              maxLines: 8,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: const Color(0xFFFFFEFA),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 18),
             const Text(
-              'Анимация',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              'КАТЕГОРИЯ',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: Color(0xFF7A7F76),
+              ),
+            ),
+            const SizedBox(height: 8),
+            DropdownButtonFormField<String>(
+              initialValue: selectedCategory,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: const Color(0xFFFFFEFA),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                ),
+                contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
+              ),
+              items: const [
+                DropdownMenuItem(value: 'idea', child: Text('Идея')),
+                DropdownMenuItem(value: 'work', child: Text('Работа')),
+                DropdownMenuItem(value: 'personal', child: Text('Личное')),
+              ],
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    selectedCategory = value;
+                  });
+                }
+              },
+            ),
+            const SizedBox(height: 22),
+            const Text(
+              'АНИМАЦИЯ',
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.6,
+                color: Color(0xFF7A7F76),
+              ),
             ),
             const SizedBox(height: 10),
             LottiePicker(
@@ -113,10 +220,23 @@ class _NoteEditPageState extends State<NoteEditPage> {
             const SizedBox(height: 24),
             SizedBox(
               width: double.infinity,
-              height: 50,
+              height: 48,
               child: ElevatedButton(
                 onPressed: saveNote,
-                child: Text(isEdit ? 'Сохранить' : 'Создать'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF536B55),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  isEdit ? 'Сохранить заметку' : 'Создать заметку',
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ),
             ),
           ],

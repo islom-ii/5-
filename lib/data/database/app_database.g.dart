@@ -29,6 +29,14 @@ class $NotesTableTable extends NotesTable
   late final GeneratedColumn<String> content = GeneratedColumn<String>(
       'content', aliasedName, false,
       type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _categoryMeta =
+      const VerificationMeta('category');
+  @override
+  late final GeneratedColumn<String> category = GeneratedColumn<String>(
+      'category', aliasedName, false,
+      type: DriftSqlType.string,
+      requiredDuringInsert: false,
+      defaultValue: const Constant('idea'));
   static const VerificationMeta _animationIndexMeta =
       const VerificationMeta('animationIndex');
   @override
@@ -43,7 +51,7 @@ class $NotesTableTable extends NotesTable
       type: DriftSqlType.dateTime, requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, title, content, animationIndex, createdAt];
+      [id, title, content, category, animationIndex, createdAt];
   @override
   String get aliasedName => _alias ?? actualTableName;
   @override
@@ -68,6 +76,10 @@ class $NotesTableTable extends NotesTable
           content.isAcceptableOrUnknown(data['content']!, _contentMeta));
     } else if (isInserting) {
       context.missing(_contentMeta);
+    }
+    if (data.containsKey('category')) {
+      context.handle(_categoryMeta,
+          category.isAcceptableOrUnknown(data['category']!, _categoryMeta));
     }
     if (data.containsKey('animation_index')) {
       context.handle(
@@ -96,6 +108,8 @@ class $NotesTableTable extends NotesTable
           .read(DriftSqlType.string, data['${effectivePrefix}title'])!,
       content: attachedDatabase.typeMapping
           .read(DriftSqlType.string, data['${effectivePrefix}content'])!,
+      category: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}category'])!,
       animationIndex: attachedDatabase.typeMapping
           .read(DriftSqlType.int, data['${effectivePrefix}animation_index']),
       createdAt: attachedDatabase.typeMapping
@@ -113,12 +127,14 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
   final int id;
   final String title;
   final String content;
+  final String category;
   final int? animationIndex;
   final DateTime createdAt;
   const NoteModel(
       {required this.id,
       required this.title,
       required this.content,
+      required this.category,
       this.animationIndex,
       required this.createdAt});
   @override
@@ -127,6 +143,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
     map['id'] = Variable<int>(id);
     map['title'] = Variable<String>(title);
     map['content'] = Variable<String>(content);
+    map['category'] = Variable<String>(category);
     if (!nullToAbsent || animationIndex != null) {
       map['animation_index'] = Variable<int>(animationIndex);
     }
@@ -139,6 +156,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
       id: Value(id),
       title: Value(title),
       content: Value(content),
+      category: Value(category),
       animationIndex: animationIndex == null && nullToAbsent
           ? const Value.absent()
           : Value(animationIndex),
@@ -153,6 +171,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       content: serializer.fromJson<String>(json['content']),
+      category: serializer.fromJson<String>(json['category']),
       animationIndex: serializer.fromJson<int?>(json['animationIndex']),
       createdAt: serializer.fromJson<DateTime>(json['createdAt']),
     );
@@ -164,6 +183,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String>(title),
       'content': serializer.toJson<String>(content),
+      'category': serializer.toJson<String>(category),
       'animationIndex': serializer.toJson<int?>(animationIndex),
       'createdAt': serializer.toJson<DateTime>(createdAt),
     };
@@ -173,12 +193,14 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
           {int? id,
           String? title,
           String? content,
+          String? category,
           Value<int?> animationIndex = const Value.absent(),
           DateTime? createdAt}) =>
       NoteModel(
         id: id ?? this.id,
         title: title ?? this.title,
         content: content ?? this.content,
+        category: category ?? this.category,
         animationIndex:
             animationIndex.present ? animationIndex.value : this.animationIndex,
         createdAt: createdAt ?? this.createdAt,
@@ -188,6 +210,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
       id: data.id.present ? data.id.value : this.id,
       title: data.title.present ? data.title.value : this.title,
       content: data.content.present ? data.content.value : this.content,
+      category: data.category.present ? data.category.value : this.category,
       animationIndex: data.animationIndex.present
           ? data.animationIndex.value
           : this.animationIndex,
@@ -201,6 +224,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
+          ..write('category: $category, ')
           ..write('animationIndex: $animationIndex, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -209,7 +233,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
 
   @override
   int get hashCode =>
-      Object.hash(id, title, content, animationIndex, createdAt);
+      Object.hash(id, title, content, category, animationIndex, createdAt);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
@@ -217,6 +241,7 @@ class NoteModel extends DataClass implements Insertable<NoteModel> {
           other.id == this.id &&
           other.title == this.title &&
           other.content == this.content &&
+          other.category == this.category &&
           other.animationIndex == this.animationIndex &&
           other.createdAt == this.createdAt);
 }
@@ -225,12 +250,14 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
   final Value<int> id;
   final Value<String> title;
   final Value<String> content;
+  final Value<String> category;
   final Value<int?> animationIndex;
   final Value<DateTime> createdAt;
   const NotesTableCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
     this.content = const Value.absent(),
+    this.category = const Value.absent(),
     this.animationIndex = const Value.absent(),
     this.createdAt = const Value.absent(),
   });
@@ -238,6 +265,7 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
     this.id = const Value.absent(),
     required String title,
     required String content,
+    this.category = const Value.absent(),
     this.animationIndex = const Value.absent(),
     required DateTime createdAt,
   })  : title = Value(title),
@@ -247,6 +275,7 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
     Expression<int>? id,
     Expression<String>? title,
     Expression<String>? content,
+    Expression<String>? category,
     Expression<int>? animationIndex,
     Expression<DateTime>? createdAt,
   }) {
@@ -254,6 +283,7 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
       if (id != null) 'id': id,
       if (title != null) 'title': title,
       if (content != null) 'content': content,
+      if (category != null) 'category': category,
       if (animationIndex != null) 'animation_index': animationIndex,
       if (createdAt != null) 'created_at': createdAt,
     });
@@ -263,12 +293,14 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
       {Value<int>? id,
       Value<String>? title,
       Value<String>? content,
+      Value<String>? category,
       Value<int?>? animationIndex,
       Value<DateTime>? createdAt}) {
     return NotesTableCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
       content: content ?? this.content,
+      category: category ?? this.category,
       animationIndex: animationIndex ?? this.animationIndex,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -286,6 +318,9 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
     if (content.present) {
       map['content'] = Variable<String>(content.value);
     }
+    if (category.present) {
+      map['category'] = Variable<String>(category.value);
+    }
     if (animationIndex.present) {
       map['animation_index'] = Variable<int>(animationIndex.value);
     }
@@ -301,6 +336,7 @@ class NotesTableCompanion extends UpdateCompanion<NoteModel> {
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('content: $content, ')
+          ..write('category: $category, ')
           ..write('animationIndex: $animationIndex, ')
           ..write('createdAt: $createdAt')
           ..write(')'))
@@ -323,6 +359,7 @@ typedef $$NotesTableTableCreateCompanionBuilder = NotesTableCompanion Function({
   Value<int> id,
   required String title,
   required String content,
+  Value<String> category,
   Value<int?> animationIndex,
   required DateTime createdAt,
 });
@@ -330,6 +367,7 @@ typedef $$NotesTableTableUpdateCompanionBuilder = NotesTableCompanion Function({
   Value<int> id,
   Value<String> title,
   Value<String> content,
+  Value<String> category,
   Value<int?> animationIndex,
   Value<DateTime> createdAt,
 });
@@ -351,6 +389,9 @@ class $$NotesTableTableFilterComposer
 
   ColumnFilters<String> get content => $composableBuilder(
       column: $table.content, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnFilters(column));
 
   ColumnFilters<int> get animationIndex => $composableBuilder(
       column: $table.animationIndex,
@@ -378,6 +419,9 @@ class $$NotesTableTableOrderingComposer
   ColumnOrderings<String> get content => $composableBuilder(
       column: $table.content, builder: (column) => ColumnOrderings(column));
 
+  ColumnOrderings<String> get category => $composableBuilder(
+      column: $table.category, builder: (column) => ColumnOrderings(column));
+
   ColumnOrderings<int> get animationIndex => $composableBuilder(
       column: $table.animationIndex,
       builder: (column) => ColumnOrderings(column));
@@ -403,6 +447,9 @@ class $$NotesTableTableAnnotationComposer
 
   GeneratedColumn<String> get content =>
       $composableBuilder(column: $table.content, builder: (column) => column);
+
+  GeneratedColumn<String> get category =>
+      $composableBuilder(column: $table.category, builder: (column) => column);
 
   GeneratedColumn<int> get animationIndex => $composableBuilder(
       column: $table.animationIndex, builder: (column) => column);
@@ -437,6 +484,7 @@ class $$NotesTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             Value<String> title = const Value.absent(),
             Value<String> content = const Value.absent(),
+            Value<String> category = const Value.absent(),
             Value<int?> animationIndex = const Value.absent(),
             Value<DateTime> createdAt = const Value.absent(),
           }) =>
@@ -444,6 +492,7 @@ class $$NotesTableTableTableManager extends RootTableManager<
             id: id,
             title: title,
             content: content,
+            category: category,
             animationIndex: animationIndex,
             createdAt: createdAt,
           ),
@@ -451,6 +500,7 @@ class $$NotesTableTableTableManager extends RootTableManager<
             Value<int> id = const Value.absent(),
             required String title,
             required String content,
+            Value<String> category = const Value.absent(),
             Value<int?> animationIndex = const Value.absent(),
             required DateTime createdAt,
           }) =>
@@ -458,6 +508,7 @@ class $$NotesTableTableTableManager extends RootTableManager<
             id: id,
             title: title,
             content: content,
+            category: category,
             animationIndex: animationIndex,
             createdAt: createdAt,
           ),

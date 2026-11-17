@@ -24,8 +24,22 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
-          colorSchemeSeed: Colors.blue,
-          brightness: Brightness.light,
+          scaffoldBackgroundColor: const Color(0xFFF5F4EF),
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: const Color(0xFF536B55),
+            surface: const Color(0xFFFFFEFA),
+            brightness: Brightness.light,
+          ),
+          appBarTheme: const AppBarTheme(
+            backgroundColor: Color(0xFFF5F4EF),
+            foregroundColor: Color(0xFF242923),
+            elevation: 0,
+          ),
+          textTheme: ThemeData.light().textTheme.apply(
+            bodyColor: const Color(0xFF242923),
+            displayColor: const Color(0xFF242923),
+            fontFamily: 'DM Sans',
+          ),
         ),
         home: const NotesPage(),
       ),

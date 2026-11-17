@@ -9,6 +9,7 @@ extension NoteModelMapper on NoteModel {
       content: content,
       animationIndex: animationIndex,
       createdAt: createdAt,
+      category: category,
     );
   }
 }
@@ -21,6 +22,7 @@ extension NoteEntityMapper on NoteEntity {
       content: content,
       animationIndex: animationIndex,
       createdAt: createdAt,
+      category: category,
     );
   }
 }

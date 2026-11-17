@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import '../../core/constants/lottie_assets.dart';
-import '../../core/extensions/lottie_extension.dart';
 
 class LottiePicker extends StatelessWidget {
   final int? selectedIndex;
@@ -17,43 +16,88 @@ class LottiePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 80,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
+      width: double.infinity,
+      child: Wrap(
+        spacing: 8,
+        runSpacing: 8,
         children: [
-          GestureDetector(
-            onTap: () => onSelected(null),
-            child: Container(
-              width: 70,
-              margin: const EdgeInsets.only(right: 10),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(
-                  color: selectedIndex == null ? Colors.blue : Colors.grey,
-                  width: selectedIndex == null ? 3 : 1,
-                ),
-              ),
-              child: const Icon(Icons.block, color: Colors.grey),
-            ),
+          _choiceTile(
+            context,
+            title: 'Искра',
+            index: 0,
+            selected: selectedIndex == 0,
           ),
-          for (int i = 0; i < LottieAssets.animations.length; i++)
-            GestureDetector(
-              onTap: () => onSelected(i),
-              child: Container(
-                width: 70,
-                margin: const EdgeInsets.only(right: 10),
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: selectedIndex == i ? Colors.blue : Colors.grey,
-                    width: selectedIndex == i ? 3 : 1,
-                  ),
-                ),
-                child: Lottie.asset(i.lottiePath),
+          _choiceTile(
+            context,
+            title: 'Пульс',
+            index: 1,
+            selected: selectedIndex == 1,
+          ),
+          _choiceTile(
+            context,
+            title: 'Книга',
+            index: 2,
+            selected: selectedIndex == 2,
+          ),
+          _choiceTile(
+            context,
+            title: 'Кадр',
+            index: 3,
+            selected: selectedIndex == 3,
+          ),
+          _choiceTile(
+            context,
+            title: 'Звезда',
+            index: 4,
+            selected: selectedIndex == 4,
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _choiceTile(
+    BuildContext context, {
+    required String title,
+    required int index,
+    required bool selected,
+  }) {
+    return GestureDetector(
+      onTap: () => onSelected(index),
+      child: Container(
+        width: 62,
+        padding: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+          color: const Color(0xFFFFFEFA),
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: selected ? const Color(0xFF688269) : const Color(0xFFE8E8E0),
+            width: selected ? 1.5 : 1,
+          ),
+          boxShadow: selected
+              ? [const BoxShadow(color: Color(0x1A536B55), blurRadius: 12)]
+              : null,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+              width: 36,
+              height: 36,
+              child: Lottie.asset(
+                LottieAssets.animations[index],
+                fit: BoxFit.contain,
               ),
             ),
-        ],
+            const SizedBox(height: 6),
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: 10,
+                color: selected ? const Color(0xFF526C54) : const Color(0xFF81877D),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

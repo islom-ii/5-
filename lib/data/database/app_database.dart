@@ -8,6 +8,7 @@ class NotesTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();
   TextColumn get content => text()();
+  TextColumn get category => text().withDefault(const Constant('idea'))();
   IntColumn get animationIndex => integer().nullable()();
   DateTimeColumn get createdAt => dateTime()();
 }

@@ -14,8 +14,18 @@ class NotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFFF5F4EF),
       appBar: AppBar(
-        title: const Text('Заметки'),
+        title: const Text(
+          'Заметки',
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w800,
+            letterSpacing: -0.6,
+            fontFamily: 'Manrope',
+          ),
+        ),
+        surfaceTintColor: Colors.transparent,
       ),
       body: BlocBuilder<NotesBloc, NotesState>(
         builder: (context, state) {
@@ -26,32 +36,66 @@ class NotesPage extends StatelessWidget {
           if (state.notes.isEmpty) {
             if (state.status == NotesStatus.loading ||
                 state.status == NotesStatus.initial) {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                child: SizedBox(
+                  width: 40,
+                  height: 40,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 3,
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF536B55)),
+                  ),
+                ),
+              );
             }
-            return const Center(child: Text('Заметок пока нет'));
+
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16),
+                child: Text(
+                  'Заметок пока нет',
+                  style: TextStyle(
+                    color: Color(0xFF858980),
+                    fontSize: 16,
+                  ),
+                ),
+              ),
+            );
           }
 
-          return ListView.builder(
-            padding: const EdgeInsets.only(top: 8, bottom: 90),
-            itemCount: state.notes.length,
-            itemBuilder: (context, index) {
-              final note = state.notes[index];
-              return NoteCard(
-                note: note,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NoteEditPage(note: note),
-                    ),
-                  );
-                },
-                onDelete: () {
-                  context.read<NotesBloc>().add(DeleteNoteEvent(note.id));
-                  context.showMessage('Заметка удалена');
-                },
-              );
-            },
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 18),
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(bottom: 90),
+                    itemCount: state.notes.length,
+                    itemBuilder: (context, index) {
+                      final note = state.notes[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 14),
+                        child: NoteCard(
+                          note: note,
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => NoteEditPage(note: note),
+                              ),
+                            );
+                          },
+                          onDelete: () {
+                            context.read<NotesBloc>().add(DeleteNoteEvent(note.id));
+                            context.showMessage('Заметка удалена');
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           );
         },
       ),
@@ -64,7 +108,9 @@ class NotesPage extends StatelessWidget {
             ),
           );
         },
-        child: const Icon(Icons.add),
+        backgroundColor: const Color(0xFFB7C9D0),
+        foregroundColor: const Color(0xFF2C3E4D),
+        child: const Icon(Icons.add, size: 32),
       ),
     );
   }
