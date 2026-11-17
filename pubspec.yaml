@@ -1,0 +1,29 @@
+name: notes_app
+description: Notes app with clean architecture
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.4.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.1.6
+  equatable: ^2.0.5
+  get_it: ^7.7.0
+  drift: ^2.20.3
+  drift_flutter: ^0.2.0
+  lottie: ^3.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.12
+  drift_dev: ^2.20.3
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/lottie/
