@@ -68,14 +68,14 @@ class LottiePicker extends StatelessWidget {
         width: 62,
         padding: const EdgeInsets.symmetric(vertical: 10),
         decoration: BoxDecoration(
-          color: const Color(0xFFFFFEFA),
+          color: const Color(0xFF1A281F),
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: selected ? const Color(0xFF688269) : const Color(0xFFE8E8E0),
+            color: selected ? const Color(0xFF79B486) : const Color(0xFF354A3A),
             width: selected ? 1.5 : 1,
           ),
           boxShadow: selected
-              ? [const BoxShadow(color: Color(0x1A536B55), blurRadius: 12)]
+              ? [const BoxShadow(color: Color(0x1A000000), blurRadius: 12)]
               : null,
         ),
         child: Column(
@@ -93,7 +93,7 @@ class LottiePicker extends StatelessWidget {
               title,
               style: TextStyle(
                 fontSize: 10,
-                color: selected ? const Color(0xFF526C54) : const Color(0xFF81877D),
+                color: selected ? const Color(0xFFB5D9BA) : const Color(0xFFA6B6A9),
               ),
             ),
           ],

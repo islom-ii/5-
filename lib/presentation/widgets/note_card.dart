@@ -32,24 +32,24 @@ class NoteCard extends StatelessWidget {
   Color get categoryColor {
     switch (note.category) {
       case 'work':
-        return const Color(0xFFEAF0E8);
+        return const Color(0xFF26392B);
       case 'personal':
-        return const Color(0xFFE9EEF2);
+        return const Color(0xFF29362D);
       case 'idea':
       default:
-        return const Color(0xFFEAF0E8);
+        return const Color(0xFF26392B);
     }
   }
 
   Color get categoryTextColor {
     switch (note.category) {
       case 'work':
-        return const Color(0xFF5C795C);
+        return const Color(0xFFA6CBAA);
       case 'personal':
-        return const Color(0xFF647F91);
+        return const Color(0xFFB2C2B5);
       case 'idea':
       default:
-        return const Color(0xFF536B55);
+        return const Color(0xFFB5D9BA);
     }
   }
 
@@ -58,12 +58,12 @@ class NoteCard extends StatelessWidget {
     final animationIndex = note.animationIndex;
 
     return Card(
-      color: const Color(0xFFFFFEFA),
+      color: const Color(0xFF1A281F),
       elevation: 0,
       margin: EdgeInsets.zero,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(18),
-        side: const BorderSide(color: Color(0xFFEDEAE3)),
+        side: const BorderSide(color: Color(0xFF2D4032)),
       ),
       child: InkWell(
         borderRadius: BorderRadius.circular(18),
@@ -96,7 +96,7 @@ class NoteCard extends StatelessWidget {
                     note.createdAt.toShortString(),
                     style: const TextStyle(
                       fontSize: 11,
-                      color: Color(0xFFA1A49D),
+                      color: Color(0xFF9CAB9F),
                     ),
                   ),
                 ],
@@ -111,7 +111,7 @@ class NoteCard extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                   letterSpacing: -0.3,
                   fontFamily: 'Manrope',
-                  color: Color(0xFF242923),
+                  color: Color(0xFFE7F0E9),
                 ),
               ),
               const SizedBox(height: 8),
@@ -122,7 +122,7 @@ class NoteCard extends StatelessWidget {
                 style: const TextStyle(
                   height: 1.6,
                   fontSize: 12,
-                  color: Color(0xFF777D73),
+                  color: Color(0xFFBBC8BE),
                 ),
               ),
               const SizedBox(height: 16),
@@ -134,7 +134,7 @@ class NoteCard extends StatelessWidget {
                       width: 34,
                       height: 34,
                       decoration: BoxDecoration(
-                        color: const Color(0xFFF1F3ED),
+                        color: const Color(0xFF24342A),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Lottie.asset(
@@ -150,7 +150,7 @@ class NoteCard extends StatelessWidget {
                     splashRadius: 18,
                     icon: const Icon(
                       Icons.delete_outline,
-                      color: Color(0xFFA5A9A1),
+                      color: Color(0xFF9AAD9E),
                       size: 19,
                     ),
                   ),

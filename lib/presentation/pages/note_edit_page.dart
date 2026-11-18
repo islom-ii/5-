@@ -68,16 +68,16 @@ class _NoteEditPageState extends State<NoteEditPage> {
     final isEdit = widget.note != null;
 
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F4EF),
+      backgroundColor: const Color(0xFF101A14),
       appBar: AppBar(
-        backgroundColor: const Color(0xFFF5F4EF),
+        backgroundColor: const Color(0xFF101A14),
         title: Text(
           isEdit ? 'Редактирование' : 'Новая заметка',
           style: const TextStyle(
             fontSize: 18,
             fontWeight: FontWeight.w700,
             fontFamily: 'Manrope',
-            color: Color(0xFF242923),
+            color: Color(0xFFE7F0E9),
           ),
         ),
         actions: [
@@ -98,7 +98,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.6,
-                color: Color(0xFF7A7F76),
+                color: Color(0xFFA6B6A9),
               ),
             ),
             const SizedBox(height: 8),
@@ -106,18 +106,18 @@ class _NoteEditPageState extends State<NoteEditPage> {
               controller: titleController,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: const Color(0xFFFFFEFA),
+                fillColor: const Color(0xFF1A281F),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                  borderSide: const BorderSide(color: Color(0xFF79B486)),
                 ),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               ),
@@ -129,7 +129,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.6,
-                color: Color(0xFF7A7F76),
+                color: Color(0xFFA6B6A9),
               ),
             ),
             const SizedBox(height: 8),
@@ -139,18 +139,18 @@ class _NoteEditPageState extends State<NoteEditPage> {
               maxLines: 8,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: const Color(0xFFFFFEFA),
+                fillColor: const Color(0xFF1A281F),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                  borderSide: const BorderSide(color: Color(0xFF79B486)),
                 ),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               ),
@@ -162,7 +162,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.6,
-                color: Color(0xFF7A7F76),
+                color: Color(0xFFA6B6A9),
               ),
             ),
             const SizedBox(height: 8),
@@ -170,18 +170,18 @@ class _NoteEditPageState extends State<NoteEditPage> {
               initialValue: selectedCategory,
               decoration: InputDecoration(
                 filled: true,
-                fillColor: const Color(0xFFFFFEFA),
+                fillColor: const Color(0xFF1A281F),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFFE7E7DF)),
+                  borderSide: const BorderSide(color: Color(0xFF304638)),
                 ),
                 focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(12),
-                  borderSide: const BorderSide(color: Color(0xFF9EAE9B)),
+                  borderSide: const BorderSide(color: Color(0xFF79B486)),
                 ),
                 contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
               ),
@@ -205,7 +205,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
                 fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.6,
-                color: Color(0xFF7A7F76),
+                color: Color(0xFFA6B6A9),
               ),
             ),
             const SizedBox(height: 10),
@@ -224,7 +224,7 @@ class _NoteEditPageState extends State<NoteEditPage> {
               child: ElevatedButton(
                 onPressed: saveNote,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF536B55),
+                  backgroundColor: const Color(0xFF397B4D),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

@@ -14,7 +14,7 @@ class NotesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF5F4EF),
+      backgroundColor: const Color(0xFF101A14),
       appBar: AppBar(
         title: const Text(
           'Заметки',
@@ -42,7 +42,7 @@ class NotesPage extends StatelessWidget {
                   height: 40,
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
-                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF536B55)),
+                    valueColor: AlwaysStoppedAnimation<Color>(Color(0xFF79B486)),
                   ),
                 ),
               );
@@ -54,7 +54,7 @@ class NotesPage extends StatelessWidget {
                 child: Text(
                   'Заметок пока нет',
                   style: TextStyle(
-                    color: Color(0xFF858980),
+                    color: Color(0xFFA6B6A9),
                     fontSize: 16,
                   ),
                 ),
@@ -108,8 +108,8 @@ class NotesPage extends StatelessWidget {
             ),
           );
         },
-        backgroundColor: const Color(0xFFB7C9D0),
-        foregroundColor: const Color(0xFF2C3E4D),
+        backgroundColor: const Color(0xFF397B4D),
+        foregroundColor: Colors.white,
         child: const Icon(Icons.add, size: 32),
       ),
     );

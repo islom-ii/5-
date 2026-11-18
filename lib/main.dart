@@ -24,20 +24,21 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           useMaterial3: true,
-          scaffoldBackgroundColor: const Color(0xFFF5F4EF),
+          brightness: Brightness.dark,
+          scaffoldBackgroundColor: const Color(0xFF101A14),
           colorScheme: ColorScheme.fromSeed(
-            seedColor: const Color(0xFF536B55),
-            surface: const Color(0xFFFFFEFA),
-            brightness: Brightness.light,
+            seedColor: const Color(0xFF5F9B6B),
+            surface: const Color(0xFF1A281F),
+            brightness: Brightness.dark,
           ),
           appBarTheme: const AppBarTheme(
-            backgroundColor: Color(0xFFF5F4EF),
-            foregroundColor: Color(0xFF242923),
+            backgroundColor: Color(0xFF101A14),
+            foregroundColor: Color(0xFFE7F0E9),
             elevation: 0,
           ),
-          textTheme: ThemeData.light().textTheme.apply(
-            bodyColor: const Color(0xFF242923),
-            displayColor: const Color(0xFF242923),
+          textTheme: ThemeData.dark().textTheme.apply(
+            bodyColor: const Color(0xFFE7F0E9),
+            displayColor: const Color(0xFFE7F0E9),
             fontFamily: 'DM Sans',
           ),
         ),
